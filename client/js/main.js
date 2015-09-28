@@ -1,3 +1,14 @@
+angular.module('myApp', [])
+	.controller('MyController', ['', function(){
+
+	}])
+	.config(['', function(){
+
+
+}]);
+
+/*
+        ---------- Old code from original 'myTweets' lab ----------
 $(document).ready(function(){
 	
 	var tweets = [];
@@ -16,7 +27,7 @@ $(document).ready(function(){
 		/*This function should create a post request using jquery. When posted it should:
 			1) Add tweets to the 'database'
 			2) After posted prepend message to list of messages and clear input box */
-        var tweet = {};
+  /*      var tweet = {};
         tweet.text = text;
         tweet.userName = userName;
         $.ajax({
@@ -34,7 +45,7 @@ $(document).ready(function(){
 	function getData() {
 		/*This function should make a get request from 'database',
 		parse the data and prepend each to the page*/
-        $.ajax({
+   /*     $.ajax({
             url: '/messages'
         }).done(function(results){
             var t = results.split('\n');
@@ -73,8 +84,10 @@ $(document).ready(function(){
 
 	getData();
 */
-    setInterval(
+ /*   setInterval(
         getData(), 
         5000
        );
 });
+*/
+
