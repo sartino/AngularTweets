@@ -1,23 +1,23 @@
 <!--<h1>tweets.html</h1>-->
-	<div class="container">
-		<h1 class="text-center">My Tweets</h1>
-		<br>
-		<div class="row">
-			<div class="col-md-12">
-				<span>User:</span>
-				<input class="tweet-user" type="text" ng-model="tweetUser" />
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<span>Enter Tweet:</span>
-				<input class="tweet-text" type="text" ng-model="tweet" />
-				<button class="tweet-button" ng-click="postTweet()">Submit Tweet</button>
-			</div>
-		</div>
-		<div class="row tweets">
-			<ul>
-				<li ng-repeat="tweet in tweets">{{tweet.userName}} {{tweet.text}}</li>
-			</ul>
+<div class="container">
+	<h1 class="text-center">My Tweets</h1>
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<span>User:</span>
+			<input class="tweet-user" type="text" ng-model="tweetUser" />
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<span>Enter Tweet:</span>
+			<input class="tweet-text" type="text" ng-model="tweet" />
+			<button class="tweet-button" ng-click="postTweet()">Submit Tweet</button>
+		</div>
+	</div>
+	<div class="row tweets">
+		<ul>
+			<li ng-repeat="tweet in tweets">{{tweet.userName}} {{tweet.text}}</li>
+		</ul>
+	</div>
+</div>

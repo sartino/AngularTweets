@@ -1,10 +1,17 @@
 var myApp = angular.module('myApp', ['ngRoute']);
-myApp.controller('TweetsController', ['$scope', '$http', function ($scope, $http) {
+myApp.controller('TweetsController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
     // $scope.tweet = 'Hello Woooorldddd!';
     // $scope.tweetUser = 'RobotTest';
+    $scope.tweets = [];
+    $scope.tweetUser = $routeParams.user;
     $http.get('/messages')              // $http.get(url)
         .success(function (messages) {
-            $scope.tweets = messages.reverse();
+            //$scope.tweets = messages.reverse();
+            messages.forEach(function (message) {
+                if (message.userName === $scope.tweetUser) {
+                    $scope.tweets.push(message);
+                }
+            })
         })
         .error(function (err) {
             console.error(err);
@@ -14,28 +21,35 @@ myApp.controller('TweetsController', ['$scope', '$http', function ($scope, $http
             text: $scope.tweet,
             userName: $scope.tweetUser
         };
-        $http.post('/messages', tweet)  // $http.post(url, data)
+        $http.post('/messages', tweet)          // $http.post(url, data)
             .success(function () {
-                $http.get('/messages')              // $http.get(url)
-        .success(function (messages) {
-            $scope.tweets = messages.reverse();
-        })
-        .error(function (err) {
-            console.error(err);
-        });  
+                //  $http.get('/messages')          // $http.get(url)
+                // .success(function (messages) {
+                $scope.tweets.unshift(tweet);
             })
             .error(function (err) {
                 console.error(err);
-            });
+
+            })
+
     }
 }])
+
+myApp.controller('WelcomeController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+    $scope.username = '';
+    $scope.submit = function () {
+        console.log('inside submit!');
+        $location.path('/tweets/' + $scope.username);
+    }
+}])
+
 myApp.config(function ($routeProvider) {
     $routeProvider
         .when('/login', {
-            templateUrl: '../views/welcome.html',  
-            controller: 'WelcomeController' 
+            templateUrl: '../views/welcome.html',
+            controller: 'WelcomeController'
         })
-        .when('/tweets', {
+        .when('/tweets/:user', {
             templateUrl: '../views/tweets.html',
             controller: 'TweetsController'
         })
