@@ -1,11 +1,48 @@
-angular.module('myApp', [])
-	.controller('MyController', ['', function(){
-
-	}])
-	.config(['', function(){
-
-
-}]);
+var myApp = angular.module('myApp', ['ngRoute']);
+myApp.controller('TweetsController', ['$scope', '$http', function ($scope, $http) {
+    // $scope.tweet = 'Hello Woooorldddd!';
+    // $scope.tweetUser = 'RobotTest';
+    $http.get('/messages')              // $http.get(url)
+        .success(function (messages) {
+            $scope.tweets = messages.reverse();
+        })
+        .error(function (err) {
+            console.error(err);
+        });
+    $scope.postTweet = function () {
+        var tweet = {
+            text: $scope.tweet,
+            userName: $scope.tweetUser
+        };
+        $http.post('/messages', tweet)  // $http.post(url, data)
+            .success(function () {
+                $http.get('/messages')              // $http.get(url)
+        .success(function (messages) {
+            $scope.tweets = messages.reverse();
+        })
+        .error(function (err) {
+            console.error(err);
+        });  
+            })
+            .error(function (err) {
+                console.error(err);
+            });
+    }
+}])
+myApp.config(function ($routeProvider) {
+    $routeProvider
+        .when('/login', {
+            templateUrl: '../views/welcome.html',  
+            controller: 'WelcomeController' 
+        })
+        .when('/tweets', {
+            templateUrl: '../views/tweets.html',
+            controller: 'TweetsController'
+        })
+        .otherwise({
+            redirectTo: '/login'
+        });
+});
 
 /*
         ---------- Old code from original 'myTweets' lab ----------
