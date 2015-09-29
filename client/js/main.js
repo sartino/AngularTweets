@@ -9,7 +9,7 @@ myApp.controller('TweetsController', ['$scope', '$http', '$routeParams', functio
             //$scope.tweets = messages.reverse();
             messages.forEach(function (message) {
                 if (message.userName === $scope.tweetUser) {
-                    $scope.tweets.push(message);
+                    $scope.tweets.unshift(message);
                 }
             })
         })
